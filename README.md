@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sistema de Biblioteca
 
-## Getting Started
+Practica de API Routes con Next.js App Router, Prisma ORM 7 y PostgreSQL en
+Supabase.
 
-First, run the development server:
+## Configuracion
+
+1. En Supabase abre **Connect** y copia la cadena **Session pooler**.
+2. Reemplaza `DATABASE_URL` en `.env` con esa cadena.
+3. Aplica el esquema y genera Prisma Client:
+
+```bash
+npx prisma migrate dev --name init
+npx prisma generate
+```
+
+4. Inicia el proyecto:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visita [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## API Routes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Metodo | Ruta | Accion |
+| --- | --- | --- |
+| GET, POST | `/api/authors` | Listar y crear autores |
+| GET, PUT, DELETE | `/api/authors/:id` | Consultar, editar y eliminar un autor |
+| GET, POST | `/api/books` | Listar y crear libros |
+| GET, PUT, DELETE | `/api/books/:id` | Consultar, editar y eliminar un libro |
 
-## Learn More
+Ejemplo para crear un autor:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+curl -X POST http://localhost:3000/api/authors \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Mario Vargas Llosa","email":"mario@biblioteca.com"}'
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Ejemplo para crear un libro:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+curl -X POST http://localhost:3000/api/books \
+  -H "Content-Type: application/json" \
+  -d '{"title":"La ciudad y los perros","isbn":"978-8420471839","authorId":1}'
+```

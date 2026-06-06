@@ -23,6 +23,22 @@
 # misc
 .DS_Store
 *.pem
+*.key
+*.crt
+*.p12
+
+# local tooling and agent assets
+.agents
+/.agents/
+/.vscode/
+
+# local secrets and environment files
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+!.env.example
 
 # debug
 npm-debug.log*
@@ -30,12 +46,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/generated/prisma
