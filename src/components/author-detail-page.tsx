@@ -150,6 +150,8 @@ export default function AuthorDetailPage({ authorId }: { authorId: string }) {
     return <p className="text-sm text-slate-300">No se encontró información para este autor.</p>
   }
 
+  const totalPages = author.books.reduce((sum, book) => sum + (book.pages ?? 0), 0)
+
   return (
     <div className="space-y-8">
       <section className="hero hero-grid">
@@ -184,7 +186,7 @@ export default function AuthorDetailPage({ authorId }: { authorId: string }) {
         <StatCard label="Libros publicados" value={stats.totalBooks} />
         <StatCard label="Promedio de páginas" value={stats.averagePages ?? 0} />
         <StatCard label="Géneros" value={stats.genres.length} />
-        <StatCard label="Registrado" value={author._count.books} />
+        <StatCard label="Total de páginas" value={totalPages} />
       </section>
 
       <section className="dashboard-grid detail-grid">
